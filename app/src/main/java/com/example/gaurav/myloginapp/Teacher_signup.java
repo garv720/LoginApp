@@ -87,8 +87,19 @@ public class Teacher_signup extends AppCompatActivity
                     name.setError("Field Required");
                 else if (dob.getText().toString().equals(""))
                     dob.setError("Field Required");
-                else if (email.getText().toString().equals(""))
+                else if (email.getText().toString().equals("")) {
                     email.setError("Field Required");
+                    boolean exists = true;
+                    List<Student> studentList = db.getAllStudents();
+                    for (int i = 0; i < studentList.size(); i++) {
+                        if (studentList.get(i).getEmail().equals(email.getText().toString())) {
+                            exists = true;
+                        }
+                    }
+                    if (exists){
+                        email.setError("Already Registered");
+                    }
+                }
                 else if (pass.getText().toString().equals(""))
                     pass.setError("Field Required");
                 else {
@@ -149,8 +160,13 @@ public class Teacher_signup extends AppCompatActivity
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
                             dateofbirth = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-
-                            dob.setText(dateofbirth);
+                            if (year <= 1990 ) {
+                                dob.setText(dateofbirth);
+                            }
+                            else {
+                                dob.setTextColor(0x7fff0000);
+                                dob.setText("Enter a valid date");
+                            }
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();

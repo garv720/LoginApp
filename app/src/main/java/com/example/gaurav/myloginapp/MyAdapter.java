@@ -68,30 +68,36 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                 DatabaseHelper db = new DatabaseHelper(view.getContext());
                                 marksList = new ArrayList<>();
 
-                                marksList.addAll(db.getMarks());
-                                for (int k = 0; k < marksList.size(); k++) {
-                                    if (marksList.get(k).getEmail().equals(dataList.get(pos).getEmail())) {
-                                        inserted = db.updateMarks(dataList.get(pos).getEmail(), maths.getText().toString(),
+                                if (Integer.parseInt(String.valueOf(maths.getText())) <= 100 &&
+                                        Integer.parseInt(String.valueOf(physics.getText())) <= 100 &&
+                                        Integer.parseInt(String.valueOf(chemistry.getText())) <= 100 &&
+                                        Integer.parseInt(String.valueOf(fcp.getText())) <= 100 &&
+                                        Integer.parseInt(String.valueOf(bme.getText())) <= 100) {
+                                    marksList.addAll(db.getMarks());
+                                    for (int k = 0; k < marksList.size(); k++) {
+                                        if (marksList.get(k).getEmail().equals(dataList.get(pos).getEmail())) {
+                                            inserted = db.updateMarks(dataList.get(pos).getEmail(), maths.getText().toString(),
+                                                    physics.getText().toString(), chemistry.getText().toString(), fcp.getText().toString(),
+                                                    bme.getText().toString());
+                                            already = true;
+                                        }
+                                    }
+                                    if (!already) {
+                                        inserted = db.setMarks(dataList.get(pos).getEmail(), maths.getText().toString(),
                                                 physics.getText().toString(), chemistry.getText().toString(), fcp.getText().toString(),
                                                 bme.getText().toString());
-                                        already = true;
+                                        if (inserted) {
+                                            Toast.makeText(view.getContext(), "Marks Inserted", Toast.LENGTH_LONG).show();
+                                        } else
+                                            Toast.makeText(view.getContext(), "Error", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        if (inserted) {
+                                            Toast.makeText(view.getContext(), "Marks Updated", Toast.LENGTH_LONG).show();
+                                        } else
+                                            Toast.makeText(view.getContext(), "Error", Toast.LENGTH_LONG).show();
                                     }
-                                }
-                                if (!already) {
-                                    inserted = db.setMarks(dataList.get(pos).getEmail(), maths.getText().toString(),
-                                            physics.getText().toString(), chemistry.getText().toString(), fcp.getText().toString(),
-                                            bme.getText().toString());
-                                    if (inserted) {
-                                        Toast.makeText(view.getContext(), "Marks Inserted", Toast.LENGTH_LONG).show();
-                                    } else
-                                        Toast.makeText(view.getContext(), "Error", Toast.LENGTH_LONG).show();
-                                }
-                                else {
-                                    if (inserted) {
-                                        Toast.makeText(view.getContext(), "Marks Updated", Toast.LENGTH_LONG).show();
-                                    } else
-                                        Toast.makeText(view.getContext(), "Error", Toast.LENGTH_LONG).show();
-                                }
+                                }else
+                                    Toast.makeText(context, "Enter Valid Marks", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
