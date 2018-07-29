@@ -1,5 +1,6 @@
 package com.example.gaurav.myloginapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,11 +31,14 @@ public class MainActivity extends AppCompatActivity {
     private List<Student> studentList;
     private List<Teacher> teacherList;
 
+    public static Activity main;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sm = new SessionManager(getApplicationContext());
         super.onCreate(savedInstanceState);
 
+        main = this;
         setContentView(R.layout.activity_main);
         if(sm.isLoggedIn()){
             User = sm.getUserDetails();
@@ -88,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Teacher_signup.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -97,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Student_signup.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     check = true;
                     break;
                 }
-            }if (check == true) {
+            }if (check) {
                 if (students.get(j).getPassword().trim().equals(pass.getText().toString().trim())) {
                     sm = new SessionManager(getApplicationContext());
                     sm.createLoginSession(students.get(j).getName(), students.get(j).getEmail(), students.get(j).getBranch());
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     Toast.makeText(MainActivity.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
             }
-            if (check == true) {
+            if (check) {
                 if (teachers.get(j).getPassword().trim().equals(pass.getText().toString().trim())) {
                     sm = new SessionManager(getApplicationContext());
                     sm.createLoginSession(teachers.get(j).getName(), teachers.get(j).getEmail(), teachers.get(j).getDepartment());

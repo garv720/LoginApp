@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
-                android:text="Branch:"
+                android:text="Department:"
                 android:layout_weight="1"
                 android:textSize="25dp"/>
             <Spinner

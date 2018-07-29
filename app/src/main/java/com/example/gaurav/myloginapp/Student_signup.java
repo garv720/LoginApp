@@ -75,6 +75,8 @@ public class Student_signup extends AppCompatActivity
     private void init() {
         signup = (Button) findViewById(R.id.stu_signup);
         signup.setOnClickListener(new View.OnClickListener() {
+            public boolean auth;
+            public boolean exists = false;
             public EditText name;
             public TextView dob;
             public EditText email;
@@ -93,43 +95,46 @@ public class Student_signup extends AppCompatActivity
                     name.setError("Field Required");
                 else if (dob.getText().toString().equals(""))
                     dob.setError("Field Required");
-                else if (email.getText().toString().equals("")) {
+                else if (email.getText().toString().equals(""))
                     email.setError("Field Required");
-                    boolean exists = true;
+                else if (pass.getText().toString().equals(""))
+                    pass.setError("Field Required");
+                else {
                     List<Teacher> teacherList = db.getAllTeacher();
                     for (int i = 0; i < teacherList.size(); i++) {
                         if (teacherList.get(i).getEmail().equals(email.getText().toString())) {
                             exists = true;
                         }
                     }
-                    if (exists){
+                    if (exists) {
                         email.setError("Already Registered");
-                    }
-                }
-                else if (pass.getText().toString().equals(""))
-                    pass.setError("Field Required");
-                else {
-                    boolean notexists = true;
-                    List<Student> studentList = db.getAllStudents();
-                    for (int i = 0; i < studentList.size(); i++) {
-                        if (studentList.get(i).getEmail().equals(email.getText().toString())) {
-                            notexists = false;
+                        exists = false;
+                    } else {
+                        boolean notexists = true;
+                        List<Student> studentList = db.getAllStudents();
+                        for (int i = 0; i < studentList.size(); i++) {
+                            if (studentList.get(i).getEmail().equals(email.getText().toString())) {
+                                notexists = false;
+                            }
                         }
-                    }
-                    if (notexists) {
-                        boolean id = db.newStudent(name.getText().toString(), branch, dateofbirth,
-                                email.getText().toString(), pass.getText().toString());
-                        if (id) {
-                            Toast.makeText(Student_signup.this, "Welcome", Toast.LENGTH_SHORT).show();
-                            sm = new SessionManager(getApplicationContext());
-                            sm.createLoginSession(name.getText().toString(), email.getText().toString(), branch);
-                            Intent intent = new Intent(Student_signup.this, Student_login.class);
-                            startActivity(intent);
-                            finish();
+                        if (notexists) {
+                            if (email.getText().toString().contains("@gmail.com")) {
+                                boolean id = db.newStudent(name.getText().toString(), branch, dateofbirth,
+                                        email.getText().toString(), pass.getText().toString());
+                                if (id) {
+                                    Toast.makeText(Student_signup.this, "Welcome", Toast.LENGTH_SHORT).show();
+                                    sm = new SessionManager(getApplicationContext());
+                                    sm.createLoginSession(name.getText().toString(), email.getText().toString(), branch);
+                                    Intent intent = new Intent(Student_signup.this, Student_login.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            } else
+                                Toast.makeText(Student_signup.this, "Enter Valid Email", Toast.LENGTH_SHORT).show();
                         }
+                        else
+                            Toast.makeText(Student_signup.this, "User already Exists", Toast.LENGTH_SHORT).show();
                     }
-                    else
-                        Toast.makeText(Student_signup.this, "User Already Exists", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -165,11 +170,13 @@ public class Student_signup extends AppCompatActivity
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
                             dateofbirth = dayOfMonth + "-" +monthOfYear + "-" + year;
-                            if (year <= 1998)
+                            if (year <= 1998) {
+                                dob.setTextColor(0x7f000000);
                                 dob.setText(dateofbirth);
+                            }
                             else {
                                 dob.setTextColor(0x7fff0000);
-                                dob.setText("Enter a valid date");
+                                dob.setText("You should be 18+");
                             }
                         }
                     }, mYear, mMonth, mDay);

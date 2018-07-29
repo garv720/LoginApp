@@ -32,6 +32,7 @@ public class Teacher_login extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_login);
+        MainActivity.main.finish();
 
         adapter = new MyAdapter(dataList, this);
 
