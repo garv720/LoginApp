@@ -113,13 +113,13 @@ public class Teacher_signup extends AppCompatActivity
                         }
                         if (notexists) {
                             if (email.getText().toString().contains("@gmail.com")) {
-                                boolean id = db.newStudent(name.getText().toString(), department, dateofbirth,
+                                boolean id = db.newTeacher(name.getText().toString(), department, dateofbirth,
                                         email.getText().toString(), pass.getText().toString());
                                 if (id) {
                                     Toast.makeText(Teacher_signup.this, "Welcome", Toast.LENGTH_SHORT).show();
                                     sm = new SessionManager(getApplicationContext());
                                     sm.createLoginSession(name.getText().toString(), email.getText().toString(), department);
-                                    Intent intent = new Intent(Teacher_signup.this, Student_login.class);
+                                    Intent intent = new Intent(Teacher_signup.this, Teacher_login.class);
                                     startActivity(intent);
                                     finish();
                                 }

@@ -122,6 +122,7 @@ public class Student_signup extends AppCompatActivity
                                 boolean id = db.newStudent(name.getText().toString(), branch, dateofbirth,
                                         email.getText().toString(), pass.getText().toString());
                                 if (id) {
+                                    db.setMarks(String.valueOf(email.getText()),"N/A","N/A","N/A","N/A","N/A");
                                     Toast.makeText(Student_signup.this, "Welcome", Toast.LENGTH_SHORT).show();
                                     sm = new SessionManager(getApplicationContext());
                                     sm.createLoginSession(name.getText().toString(), email.getText().toString(), branch);

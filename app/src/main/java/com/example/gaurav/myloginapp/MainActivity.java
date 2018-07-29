@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
                     check = true;
                     break;
                 }
-                else
-                    Toast.makeText(MainActivity.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
+                /*else
+                    Toast.makeText(MainActivity.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();*/
             }
             if (check) {
                 if (teachers.get(j).getPassword().trim().equals(pass.getText().toString().trim())) {
