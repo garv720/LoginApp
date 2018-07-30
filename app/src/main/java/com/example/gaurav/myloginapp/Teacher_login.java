@@ -25,8 +25,8 @@ public class Teacher_login extends AppCompatActivity {
     private TextView branch;
     private SessionManager sm;
     private Button logout;
-    private Button refresh;
-    private List<Student> students = new ArrayList<>();
+/*    private Button refresh;
+    private List<Student> students = new ArrayList<>();*/
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class Teacher_login extends AppCompatActivity {
         email = (TextView)findViewById(R.id.teacheremail);
 
         logout = (Button)findViewById(R.id.teach_logout);
-        refresh = (Button)findViewById(R.id.refresh);
+        /*refresh = (Button)findViewById(R.id.refresh);*/
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -64,7 +64,7 @@ public class Teacher_login extends AppCompatActivity {
             }
         });
 
-        refresh.setOnClickListener(new View.OnClickListener() {
+/*        refresh.setOnClickListener(new View.OnClickListener() {
             public List<Student> list;
 
             @Override
@@ -72,7 +72,7 @@ public class Teacher_login extends AppCompatActivity {
                 startActivity(new Intent(Teacher_login.this, Teacher_login.class));
                 finish();
             }
-        });
+        });*/
 
     }
 

@@ -140,9 +140,9 @@ public class MainActivity extends AppCompatActivity {
         boolean check =false;
         teachers = db.getAllTeacher();
         if (teachers.size() == 0) {
-            if (empty){
+            if (empty)
                 Toast.makeText(this, "No record found", Toast.LENGTH_SHORT).show();
-            }else
+            else
                 Toast.makeText(MainActivity.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
         } else {
             for (int i = 0; i < teachers.size(); i++) {
@@ -152,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
                     check = true;
                     break;
                 }
-                /*else
-                    Toast.makeText(MainActivity.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();*/
             }
             if (check) {
                 if (teachers.get(j).getPassword().trim().equals(pass.getText().toString().trim())) {
@@ -165,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
                 } else
                     Toast.makeText(MainActivity.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
             }
-        }
+            else
+                Toast.makeText(MainActivity.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
+            }
         }
 }

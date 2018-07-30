@@ -23,6 +23,7 @@ public class Student_login extends AppCompatActivity {
     private TextView fcp;
     private TextView bme;
     private DatabaseHelper db;
+    private TextView avg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,14 +60,20 @@ public class Student_login extends AppCompatActivity {
         chemistry = (TextView)findViewById(R.id.sub_3);
         fcp = (TextView)findViewById(R.id.sub_4);
         bme = (TextView)findViewById(R.id.sub_5);
+        avg = (TextView)findViewById(R.id.avg);
+
         for (int i = 0; i< marks.size(); i++) {
             if (marks.get(i).getEmail().equals(user.get(sm.KEY_EMAIL))) {
 
-                maths.setText(marks.get(i).getMaths());
-                physics.setText(marks.get(i).getPhysics());
-                chemistry.setText(marks.get(i).getChemistry());
-                fcp.setText(marks.get(i).getFcp());
-                bme.setText(marks.get(i).getBme());
+                Marks mark = marks.get(i);
+                maths.setText(mark.getMaths());
+                physics.setText(mark.getPhysics());
+                chemistry.setText(mark.getChemistry());
+                fcp.setText(mark.getFcp());
+                bme.setText(mark.getBme());
+                avg.setText((Integer.parseInt(mark.getMaths() + mark.getPhysics() + mark.getPhysics() + mark.getFcp() + mark.getBme())
+                        / 5) + " %");
+
             }
         }
 

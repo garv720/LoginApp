@@ -21,13 +21,13 @@
                android:textSize="25dp"
                android:text="Welcome"
                android:textColor="#fff"/>
-           <Button
+<!--           <Button
                android:id="@+id/refresh"
                android:layout_width="55dp"
                android:layout_height="30dp"
                android:text="Refresh"
                android:textSize="7dp"
-               android:layout_marginTop="10dp"/>
+               android:layout_marginTop="10dp"/>-->
            <Button
                android:id="@+id/teach_logout"
                android:layout_width="55dp"

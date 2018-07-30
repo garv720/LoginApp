@@ -90,27 +90,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                if (String.valueOf(maths.getText()).equals("N/A"))
+                                if (String.valueOf(maths.getText()).equals("N/A") || String.valueOf(maths.getText()).equals(""))
                                     mathsMark = 0;
                                 else
                                     mathsMark = Integer.parseInt(maths.getText().toString());
 
-                                if (String.valueOf(physics.getText()).equals("N/A"))
+                                if (String.valueOf(physics.getText()).equals("N/A") || String.valueOf(physics.getText()).equals(""))
                                     physicsMark = 0;
                                 else
                                     physicsMark = Integer.parseInt(physics.getText().toString());
 
-                                if (String.valueOf(chemistry.getText()).equals("N/A"))
+                                if (String.valueOf(chemistry.getText()).equals("N/A") || String.valueOf(chemistry.getText()).equals(""))
                                     chemistryMark = 0;
                                 else
                                     chemistryMark = Integer.parseInt(chemistry.getText().toString());
 
-                                if (String.valueOf(fcp.getText()).equals("N/A"))
+                                if (String.valueOf(fcp.getText()).equals("N/A") || String.valueOf(fcp.getText()).equals(""))
                                     fcpMark = 0;
                                 else
                                     fcpMark = Integer.parseInt(fcp.getText().toString());
 
-                                if (String.valueOf(bme.getText()).equals("N/A"))
+                                if (String.valueOf(bme.getText()).equals("N/A") || String.valueOf(bme.getText()).equals(""))
                                     bmeMark = 0;
                                 else
                                     bmeMark = Integer.parseInt(bme.getText().toString());
@@ -140,6 +140,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                     }
                                 }else
                                     Toast.makeText(context, "Enter Valid Marks", Toast.LENGTH_SHORT).show();
+
+                                notifyDataSetChanged();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
